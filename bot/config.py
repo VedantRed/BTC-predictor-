@@ -15,6 +15,13 @@ class Config:
     base_url: str
     series_ticker: str
     brti_index: str
+    typesafe_api_key: str | None
+    typesafe_base_url: str
+    typesafe_model: str
+    entry_start_seconds: int
+    entry_end_seconds: int
+    up_threshold: float
+    down_threshold: float
 
 
 def load_config() -> Config:
@@ -24,4 +31,13 @@ def load_config() -> Config:
         base_url=os.getenv("KALSHI_BASE_URL", "https://external-api.kalshi.com"),
         series_ticker=os.getenv("KALSHI_SERIES", "KXBTC15M"),
         brti_index=os.getenv("BRTI_INDEX", "BRTI"),
+        typesafe_api_key=os.getenv("TYPESAFE_API_KEY") or None,
+        typesafe_base_url=os.getenv(
+            "TYPESAFE_BASE_URL", "https://api.typesafe.ai"
+        ),
+        typesafe_model=os.getenv("TYPESAFE_MODEL", "jev-latest"),
+        entry_start_seconds=int(os.getenv("ENTRY_START_SECONDS", "120")),
+        entry_end_seconds=int(os.getenv("ENTRY_END_SECONDS", "360")),
+        up_threshold=float(os.getenv("UP_THRESHOLD", "0.75")),
+        down_threshold=float(os.getenv("DOWN_THRESHOLD", "0.25")),
     )
